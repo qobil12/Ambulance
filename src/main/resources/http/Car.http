@@ -1,0 +1,8 @@
+POST http://localhost:8080/api/v1/car
+Content-Type: application/json
+
+{
+  "model": "mercedes",
+  "number": "01|777 HBA",
+  "regionName": "mirzo ulugbek"
+}

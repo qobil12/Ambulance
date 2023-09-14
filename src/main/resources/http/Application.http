@@ -1,0 +1,9 @@
+POST http://localhost:8080/api/v1/application
+Content-Type: application/json
+
+{
+  "brigadeId": "bf080264-aae5-4ba6-a559-43e516c38cbb",
+  "patientId": "6a2ae2c2-a4e8-48b8-bad6-bbd3f2b58be4",
+  "regionName": "chilonzor",
+  "fullAddress": "chilonzor 1 kvarta 24/12"
+}
