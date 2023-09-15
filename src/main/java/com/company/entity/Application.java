@@ -29,5 +29,5 @@ public class Application {
     @ManyToOne(fetch = FetchType.LAZY)
     private Brigade brigade;
     @Column(nullable = false)
-    private boolean isClosed=false;
+    private Boolean isClosed=false;
 }
