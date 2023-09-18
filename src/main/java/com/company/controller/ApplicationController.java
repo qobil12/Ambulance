@@ -4,35 +4,42 @@ import com.company.dto.ApplicationDTO;
 import com.company.dto.ApplicationInfoDTO;
 import com.company.dto.ChangeStatusDTO;
 import com.company.service.ApplicationService;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.v3.oas.annotations.Operation;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/application")
+@RequestMapping("/api/v1/application")
+@RequiredArgsConstructor
 public class ApplicationController {
-    @Autowired
-    private ApplicationService applicationService;
+    private final ApplicationService applicationService;
 
+    @Operation( summary = "Create Application", description = "By this method you can create an application .")
     @PostMapping(name = "/create")
-    private ResponseEntity<String> createApplication(@RequestBody ApplicationDTO dto){
+    public ResponseEntity<String> createApplication(@RequestBody ApplicationDTO dto) {
         applicationService.createApplication(dto);
-        return ResponseEntity.ok().body("Application succesfully created !");
-    }
-    @PutMapping(name = "/change_status")
-    private ResponseEntity<String> changeApplicationStatus(@RequestBody ChangeStatusDTO dto){
-        applicationService.changeStatus(dto);
-      return   ResponseEntity.ok().body("Application status changed into" +dto.getStatus());
-    }
-    @GetMapping(name = "/get_all")
-    private ResponseEntity<List<ApplicationInfoDTO>> getAllApplications(){
-        return ResponseEntity.ok().body(applicationService.getAllApplicationsList());
-    }
-    @GetMapping(name = "/get_by_status")
-    private ResponseEntity<List<ApplicationInfoDTO>> getAllApplicationsByStatus(@RequestParam Boolean status){
-       return ResponseEntity.ok().body(applicationService.getApplicationsListByStatus(status));
+        return ResponseEntity.ok().body("Application succesfully created .");
     }
 
+    @Operation(summary = "Change Application's status", description = "By this method you can change applications status when it closed .")
+    @PutMapping( "/change_status")
+    public ResponseEntity<String> changeApplicationStatus(@RequestBody ChangeStatusDTO dto) {
+        applicationService.changeStatus(dto);
+        return ResponseEntity.ok().body("Application status changed into" + dto.getStatus());
+    }
+
+    @Operation(summary = "Get All Applications' List", description = "You can all applications' list by this method .")
+    @GetMapping("/list/get_all_applications")
+    public ResponseEntity<List<ApplicationInfoDTO>> _applicationList() {
+        return ResponseEntity.ok(applicationService.getAllApplicationsList());
+    }
+
+    @Operation(summary = "Get applications by status", description = "You can get applications' list by their status (Closed or not)")
+    @GetMapping(  "/list/getByStatus/{status}")
+    public ResponseEntity<List<ApplicationInfoDTO>> _getAllByStatus(@PathVariable Boolean status) {
+        return ResponseEntity.ok(applicationService.getApplicationsListByStatus(status));
+    }
 }

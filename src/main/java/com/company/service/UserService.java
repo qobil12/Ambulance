@@ -4,13 +4,15 @@ import com.company.dto.UserDTO;
 import com.company.entity.UserEntity;
 import com.company.exceptions.ItemAlreadyExistsException;
 import com.company.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public String registration(UserDTO dto) {
 

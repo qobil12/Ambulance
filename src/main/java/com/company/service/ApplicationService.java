@@ -10,24 +10,26 @@ import com.company.repository.ApplicationRepository;
 import com.company.repository.BrigadeRepository;
 import com.company.repository.RegionRepository;
 import com.company.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ApplicationService {
-    @Autowired
-    ApplicationRepository applicationRepository;
-    @Autowired
-    BrigadeRepository brigadeRepository;
-    @Autowired
-    RegionRepository regionRepository;
-    @Autowired
-    UserRepository userRepository;
+    final ApplicationRepository applicationRepository;
+    final BrigadeRepository brigadeRepository;
+    final RegionRepository regionRepository;
+    final UserRepository userRepository;
+
+    public ApplicationService(ApplicationRepository applicationRepository, BrigadeRepository brigadeRepository, RegionRepository regionRepository, UserRepository userRepository) {
+        this.applicationRepository = applicationRepository;
+        this.brigadeRepository = brigadeRepository;
+        this.regionRepository = regionRepository;
+        this.userRepository = userRepository;
+    }
 
     public void createApplication(ApplicationDTO dto) {
         Brigade brigade = brigadeRepository.getBrigadeById(dto.getBrigadeId());
@@ -49,16 +51,25 @@ public class ApplicationService {
     }
 
     public List<ApplicationInfoDTO> getApplicationsListByStatus(Boolean status) {
-        List<Application> applications=applicationRepository.getApplicationByIsClosed(status);
+
+        return applicationRepository.findAllByIsClosed(status)
+                .stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+
+    }
+
+    public List<ApplicationInfoDTO> getAllApplicationsList() {
+        Iterable<Application> applications = applicationRepository.findAll();
         return getApplicationInfoDTOS(applications);
     }
 
-    private List<ApplicationInfoDTO> getApplicationInfoDTOS(List<Application> applications) {
-        if (applications.isEmpty()) {
-            throw new ItemNotFoundException("Applications not found !");
+    private List<ApplicationInfoDTO> getApplicationInfoDTOS(Iterable<Application> applications) {
+        if (!applications.iterator().hasNext()) {
+            throw new ItemNotFoundException("Applications not found!");
         }
 
-        List<ApplicationInfoDTO> dtoList = new LinkedList<>();
+        List<ApplicationInfoDTO> dtoList = new ArrayList<>();
 
         applications.forEach(application -> {
                     ApplicationInfoDTO dto = toDTO(application);
@@ -68,20 +79,17 @@ public class ApplicationService {
         return dtoList;
     }
 
-    public List<ApplicationInfoDTO> getAllApplicationsList() {
-        List<Application> all = applicationRepository.getAll();
-        return getApplicationInfoDTOS(all);
-    }
 
-    public ApplicationInfoDTO toDTO(Application application) {
-        ApplicationInfoDTO dto = new ApplicationInfoDTO();
-        dto.setStatus(application.getIsClosed());
-        dto.setCreatedDate(application.getCreated_date());
-        dto.setBrigadeId(application.getBrigade().getId());
-        dto.setRegionName(application.getRegion().getName());
-        dto.setPatientFullName(application.getPatient().getName() + " " + application.getPatient().getSurname());
-        dto.setFullAddress(application.getFullAddress());
-        return dto;
+    private ApplicationInfoDTO toDTO(Application application) {
+
+        return ApplicationInfoDTO.builder()
+                .status(application.getIsClosed())
+                .createdDate(application.getCreated_date())
+                .brigadeId(application.getBrigade().getId())
+                .regionName(application.getRegion().getName())
+                .patientFullName(application.getPatient().getName() + " " + application.getPatient().getSurname())
+                .fullAddress(application.getFullAddress())
+                .build();
     }
 
 }

@@ -11,17 +11,15 @@ import java.util.List;
 
 public interface ApplicationRepository extends CrudRepository<Application, String> {
     Application getApplicationById(String id);
-    List<Application> getApplicationByIsClosed(Boolean status);
+
+
+    List<Application> findAllByIsClosed(Boolean isClosed);
 
     @Modifying
     @Transactional
     @Query("update Application set isClosed=?1 where id=?1")
     void changeApplicationStatus( Boolean status, String id) ;
 
-    List<Application> getAll();
-
-//   // List<Application> findAllApplicationByClosedIsWithPagination(@Param("offset") int page,
-//                                                                 @Param("limit") int size);
-
+    Iterable<Application> findAll();
 
 }

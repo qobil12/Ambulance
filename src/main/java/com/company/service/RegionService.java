@@ -3,13 +3,16 @@ package com.company.service;
 import com.company.dto.RegionDTO;
 import com.company.entity.Region;
 import com.company.repository.RegionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class RegionService {
-    @Autowired
+    final
     RegionRepository repository;
+
+    public RegionService(RegionRepository repository) {
+        this.repository = repository;
+    }
 
     public void createRegion(RegionDTO dto) {
         Region region = new Region();
