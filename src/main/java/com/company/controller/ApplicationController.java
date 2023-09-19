@@ -2,6 +2,7 @@ package com.company.controller;
 
 import com.company.dto.ApplicationDTO;
 import com.company.dto.ApplicationInfoDTO;
+import com.company.dto.BrigadeDTO;
 import com.company.dto.ChangeStatusDTO;
 import com.company.service.ApplicationService;
 import io.swagger.v3.oas.annotations.Operation;

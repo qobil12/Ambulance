@@ -22,4 +22,7 @@ public class Car {
     @JoinColumn(nullable = false, name = "region")
     @ManyToOne
     private Region region;
+    @JoinColumn(name = "brigade")
+    @OneToOne
+    private Brigade brigade;
 }

@@ -7,6 +7,8 @@ import com.company.repository.CarRepository;
 import com.company.repository.RegionRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CarService {
     final
@@ -20,10 +22,14 @@ public class CarService {
     }
 
     public void createCar(CarDTO dto) {
-        Car car=new Car();
+        Car car = new Car();
         car.setModel(CarModel.valueOf(dto.getModel().toUpperCase()));
         car.setRegion(regionRepository.getRegionByName(dto.getRegionName().toUpperCase()));
         car.setNumber(dto.getNumber());
         carRepository.save(car);
+    }
+
+    public List<Car> getAllFreeCars() {
+        return carRepository.findAllByBrigadeNull();
     }
 }
