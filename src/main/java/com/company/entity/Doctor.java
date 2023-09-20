@@ -25,4 +25,7 @@ public class Doctor {
     @Column(nullable = false)
     private String phoneNumber;
 
+    @JoinColumn(name = "brigade")
+    @ManyToOne
+    private Brigade brigade;
 }

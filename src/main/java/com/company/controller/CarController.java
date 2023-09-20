@@ -1,7 +1,6 @@
 package com.company.controller;
 
 import com.company.dto.CarDTO;
-import com.company.entity.Car;
 import com.company.service.CarService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
@@ -24,9 +23,14 @@ public class CarController {
         return ResponseEntity.ok().body("Car succesfully created !");
     }
 
-    @Operation(summary = "Get all free cars",description = "By this method you can get list of all cars that doesn't has brigade .")
+    @Operation(summary = "Get all free cars", description = "By this method you can get list of all cars that doesn't have brigade .")
     @GetMapping("/get_all_free")
-    public ResponseEntity<List<Car>> getAllFreeCars() {
+    public ResponseEntity<List<CarDTO>> getAllFreeCars() {
         return ResponseEntity.ok().body(carService.getAllFreeCars());
+    }
+    @Operation(summary = "Delete car",description = "You can delete car by  this method giving id")
+    @DeleteMapping("/delete_car/{id}")
+    public ResponseEntity<String> deleteCarById(@PathVariable String id){
+        return ResponseEntity.ok().body(carService.deleteById(id));
     }
 }

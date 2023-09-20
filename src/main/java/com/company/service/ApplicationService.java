@@ -3,13 +3,12 @@ package com.company.service;
 import com.company.dto.ApplicationDTO;
 import com.company.dto.ApplicationInfoDTO;
 import com.company.dto.ChangeStatusDTO;
+import com.company.dto.PatientApplicationDTO;
 import com.company.entity.Application;
 import com.company.entity.Brigade;
+import com.company.entity.PatientApplication;
 import com.company.exceptions.ItemNotFoundException;
-import com.company.repository.ApplicationRepository;
-import com.company.repository.BrigadeRepository;
-import com.company.repository.RegionRepository;
-import com.company.repository.UserRepository;
+import com.company.repository.*;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -23,26 +22,32 @@ public class ApplicationService {
     final BrigadeRepository brigadeRepository;
     final RegionRepository regionRepository;
     final UserRepository userRepository;
+    final PatientApplicationRepository patientApplicationRepository;
 
-    public ApplicationService(ApplicationRepository applicationRepository, BrigadeRepository brigadeRepository, RegionRepository regionRepository, UserRepository userRepository) {
+    public ApplicationService(ApplicationRepository applicationRepository, BrigadeRepository brigadeRepository, RegionRepository regionRepository, UserRepository userRepository, PatientApplicationRepository patientApplicationRepository) {
         this.applicationRepository = applicationRepository;
         this.brigadeRepository = brigadeRepository;
         this.regionRepository = regionRepository;
         this.userRepository = userRepository;
+        this.patientApplicationRepository = patientApplicationRepository;
     }
 
-    public void createApplication(ApplicationDTO dto) {
+    public String  createApplication(ApplicationDTO dto) {
         Brigade brigade = brigadeRepository.getBrigadeById(dto.getBrigadeId());
+        PatientApplication patientApplication=patientApplicationRepository.getById(dto.getPatientApplicationId());
         Application application = new Application();
         application.setBrigade(brigade);
-        application.setRegion(regionRepository.getRegionByName(dto.getRegionName().toUpperCase()));
+        application.setRegion(regionRepository.getRegionByName(patientApplication.getRegionName().toUpperCase()));
         application.setCreated_date(LocalDateTime.now());
-        application.setPatient(userRepository.getById(dto.getPatientId()));
-        application.setFullAddress(dto.getFullAddress());
+        application.setPatient(userRepository.getById(patientApplication.getUserId()));
+        application.setFullAddress(patientApplication.getAddress());
         brigade.setIsBusy(true);
+        patientApplication.setIsAttached(true);
 
         brigadeRepository.save(brigade);
         applicationRepository.save(application);
+        patientApplicationRepository.save(patientApplication);
+        return "Patient's application successfully joined with brigade !";
 
     }
 
@@ -92,4 +97,22 @@ public class ApplicationService {
                 .build();
     }
 
+    public PatientApplicationDTO createPatientApplication(PatientApplicationDTO dto) {
+
+        PatientApplication patientApplication = new PatientApplication();
+        patientApplication.setUserId(dto.getUserId());
+        patientApplication.setAddress(dto.getAddress());
+        patientApplication.setIllness(dto.getIllness());
+        patientApplication.setLatitude(dto.getLatitude());
+        patientApplication.setLongitude(dto.getLongitude());
+        patientApplicationRepository.save(patientApplication);
+
+        return dto;
+        //lat : 41.311117
+        //long : 69.279761
+    }
+
+    public List<PatientApplication> getPatientApplications() {
+       return patientApplicationRepository.findAllByIsAttached(false);
+    }
 }

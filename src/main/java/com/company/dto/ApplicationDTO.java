@@ -9,8 +9,5 @@ import lombok.*;
 @Builder
 public class ApplicationDTO {
     private String brigadeId;
-    private String patientId;
-    private String regionName;
-    private String fullAddress;
-
+    private String patientApplicationId;
 }
