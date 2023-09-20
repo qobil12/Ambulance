@@ -19,6 +19,7 @@ public class BrigadeController {
         this.brigadeService = brigadeService;
     }
 
+    @Operation(summary = "Creates brigade",description = "By this method you can create a brigade.")
     @PostMapping(name = "/create")
     private ResponseEntity<String> createBrigade(@RequestBody BrigadeDTO dto){
         brigadeService.createBrigade(dto);

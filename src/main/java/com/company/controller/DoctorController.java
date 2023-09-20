@@ -1,7 +1,6 @@
 package com.company.controller;
 
 import com.company.dto.DoctorDTO;
-import com.company.entity.Car;
 import com.company.service.DoctorService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +17,7 @@ public class DoctorController {
     public DoctorController(DoctorService doctorService) {
         this.doctorService = doctorService;
     }
-
+    @Operation(summary = "Creates a doctor entity.")
     @PostMapping("/create")
     public ResponseEntity<String> createDoctor(@RequestBody DoctorDTO dto){
         doctorService.createDoctor(dto);

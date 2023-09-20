@@ -2,6 +2,7 @@ package com.company.controller;
 
 import com.company.dto.RegionDTO;
 import com.company.service.RegionService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,11 +17,11 @@ public class RegionController {
     public RegionController(RegionService regionService) {
         this.regionService = regionService;
     }
-
+    @Operation(summary = "Creates a region",description = "Creates a new region")
     @PostMapping(name = "/create")
     private ResponseEntity<String> createRegion(@RequestBody RegionDTO dto){
         regionService.createRegion(dto);
-        return ResponseEntity.ok().body("Region succesfully created !");
+        return ResponseEntity.ok().body("Region successfully created !");
     }
 
 }

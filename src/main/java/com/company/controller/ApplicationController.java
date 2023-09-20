@@ -54,4 +54,5 @@ public class ApplicationController {
         return ResponseEntity.ok().body(applicationService.getPatientApplications());
     }
 
+
 }

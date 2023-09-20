@@ -17,6 +17,7 @@ public class CarController {
         this.carService = carService;
     }
 
+    @Operation(summary = "Creates a car.",description = "Creates a new car entity.")
     @PostMapping("/create")
     public ResponseEntity<String> createCar(@RequestBody CarDTO dto) {
         carService.createCar(dto);
