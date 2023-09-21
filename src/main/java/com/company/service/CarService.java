@@ -4,6 +4,7 @@ import com.company.dto.CarDTO;
 import com.company.dto.ChangeCarNumberDTO;
 import com.company.entity.Car;
 import com.company.enums.CarModel;
+import com.company.exceptions.ItemAlreadyExistsException;
 import com.company.exceptions.ItemNotFoundException;
 import com.company.repository.CarRepository;
 import com.company.repository.RegionRepository;
@@ -29,6 +30,9 @@ public class CarService {
         Car car = new Car();
         car.setModel(CarModel.valueOf(dto.getModel().toUpperCase()));
         car.setRegion(regionRepository.getRegionByName(dto.getRegionName().toUpperCase()));
+        if(carRepository.existsByNumber(dto.getNumber())){
+            throw new ItemAlreadyExistsException("Car with this number already exists");
+        }
         car.setNumber(dto.getNumber());
         carRepository.save(car);
     }

@@ -8,4 +8,5 @@ import java.util.List;
 public interface CarRepository extends CrudRepository<Car, String> {
     Car getByNumber(String number);
     List<Car> findAllByBrigadeNull();
+    boolean existsByNumber(String number);
 }
