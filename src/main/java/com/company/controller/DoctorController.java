@@ -1,5 +1,6 @@
 package com.company.controller;
 
+import com.company.dto.ChangeDoctorInfoDTO;
 import com.company.dto.DoctorDTO;
 import com.company.service.DoctorService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,5 +28,15 @@ public class DoctorController {
     @GetMapping("/get_all_free")
     public ResponseEntity<List<DoctorDTO>> getAllFreeDoctors() {
         return ResponseEntity.ok().body(doctorService.getAllFree());
+    }
+    @Operation(summary = "Delete doctor",description = "By this method admin can delete doctor.")
+    @DeleteMapping("/delete_doctor/{id}")
+    public ResponseEntity<String> deleteDoctor(@PathVariable String id){
+        return ResponseEntity.ok().body(doctorService.delete(id));
+    }
+    @Operation(summary = "Change info about doctor",description = "By this method admin can change all or necessery info about doctor.")
+    @PutMapping("/change_info")
+    public ResponseEntity<String> changeInfo(@RequestBody ChangeDoctorInfoDTO dto){
+            return ResponseEntity.ok().body(doctorService.changeDoctorInfo(dto));
     }
 }

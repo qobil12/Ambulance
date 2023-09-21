@@ -1,6 +1,7 @@
 package com.company.service;
 
 import com.company.dto.CarDTO;
+import com.company.dto.ChangeCarNumberDTO;
 import com.company.entity.Car;
 import com.company.enums.CarModel;
 import com.company.exceptions.ItemNotFoundException;
@@ -9,6 +10,7 @@ import com.company.repository.RegionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -49,5 +51,16 @@ public class CarService {
         }
         carRepository.deleteById(id);
         return "Car successfully deleted !";
+    }
+
+    public String changeNumber(ChangeCarNumberDTO dto) {
+        Optional<Car> byId = carRepository.findById(dto.getId());
+        if(byId.isEmpty()){
+            throw new ItemNotFoundException("Car not found with this id");
+        }
+        Car car = byId.get();
+        car.setNumber(dto.getNewNumber());
+        carRepository.save(car);
+        return "Car's number successfully changed.";
     }
 }

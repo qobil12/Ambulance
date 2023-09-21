@@ -9,4 +9,5 @@ public interface DoctorRepository extends CrudRepository<Doctor, String> {
     Doctor getByPhoneNumber(String nubmer);
 
     List<Doctor> findAllByBrigadeNull();
+
 }

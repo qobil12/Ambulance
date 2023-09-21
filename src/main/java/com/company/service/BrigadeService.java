@@ -74,7 +74,7 @@ public class BrigadeService {
         return "Brigade's doctor successfully changed !";
     }
     public List<BrigadeDTO> getAllList() {
-       return brigadeRepository.getAll()
+       return brigadeRepository.findAll()
                 .stream().map(this::toDTO)
                 .collect(Collectors.toList());
     }

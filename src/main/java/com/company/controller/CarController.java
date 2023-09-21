@@ -1,6 +1,7 @@
 package com.company.controller;
 
 import com.company.dto.CarDTO;
+import com.company.dto.ChangeCarNumberDTO;
 import com.company.service.CarService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
@@ -33,5 +34,10 @@ public class CarController {
     @DeleteMapping("/delete_car/{id}")
     public ResponseEntity<String> deleteCarById(@PathVariable String id){
         return ResponseEntity.ok().body(carService.deleteById(id));
+    }
+    @Operation(summary = "Change car's number",description = "By this method admin can change car's number.")
+    @PutMapping("/change_number")
+    public ResponseEntity<String> changeCarNumber(@RequestBody ChangeCarNumberDTO dto){
+        return ResponseEntity.ok().body(carService.changeNumber(dto));
     }
 }
