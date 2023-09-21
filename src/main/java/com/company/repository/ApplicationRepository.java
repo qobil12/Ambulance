@@ -8,12 +8,8 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-
 public interface ApplicationRepository extends CrudRepository<Application, String> {
-    Application getApplicationById(String id);
-
-
-    List<Application> findAllByIsClosed(Boolean isClosed);
+       List<Application> findAllByIsClosed(Boolean isClosed);
 
     @Modifying
     @Transactional

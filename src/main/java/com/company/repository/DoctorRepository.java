@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface DoctorRepository extends CrudRepository<Doctor, String> {
-    Doctor getByPhoneNumber(String nubmer);
+    Doctor getByPhoneNumber(String number);
 
     List<Doctor> findAllByBrigadeNull();
 
