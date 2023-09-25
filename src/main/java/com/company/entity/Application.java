@@ -10,11 +10,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Application {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Setter(AccessLevel.NONE)
-    private String id;
+public class Application extends BaseEntity{
+
     @Column(nullable = false)
     private LocalDateTime created_date;
     @JoinColumn(nullable = false, name = "patient")

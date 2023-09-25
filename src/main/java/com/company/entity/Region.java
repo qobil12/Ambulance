@@ -8,11 +8,8 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Region {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Setter(AccessLevel.NONE)
-    private String id;
+public class Region extends BaseEntity{
+
     @Column(nullable = false)
     private String name;
 }

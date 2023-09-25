@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("api/v1/doctor")
@@ -20,9 +21,8 @@ public class DoctorController {
     }
     @Operation(summary = "Creates a doctor entity.")
     @PostMapping("/create")
-    public ResponseEntity<String> createDoctor(@RequestBody DoctorDTO dto){
-        doctorService.createDoctor(dto);
-        return ResponseEntity.ok().body("Doctor succesfully added !");
+    public ResponseEntity<DoctorDTO> createDoctor(@RequestBody DoctorDTO dto){
+        return ResponseEntity.ok().body(doctorService.createDoctor(dto));
     }
     @Operation(summary = "Get all free doctors",description = "By this method you can get list of all doctors that doesn't have brigade .")
     @GetMapping("/get_all_free")
@@ -31,7 +31,7 @@ public class DoctorController {
     }
     @Operation(summary = "Delete doctor",description = "By this method admin can delete doctor.")
     @DeleteMapping("/delete_doctor/{id}")
-    public ResponseEntity<String> deleteDoctor(@PathVariable String id){
+    public ResponseEntity<String> deleteDoctor(@PathVariable UUID id){
         return ResponseEntity.ok().body(doctorService.delete(id));
     }
     @Operation(summary = "Change info about doctor",description = "By this method admin can change all or necessery info about doctor.")

@@ -1,12 +1,12 @@
 package com.company.repository;
 
 import com.company.entity.Brigade;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.UUID;
 
-public interface BrigadeRepository extends CrudRepository<Brigade,String> {
-    Brigade getBrigadeById(String id);
+public interface BrigadeRepository extends JpaRepository<Brigade, UUID> {
+    Brigade getBrigadeById(UUID id);
     List<Brigade> findAllByIsBusy(Boolean isBusy);
-    List<Brigade> findAll();
 }

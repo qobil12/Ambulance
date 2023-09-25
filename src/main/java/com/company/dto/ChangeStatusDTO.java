@@ -1,6 +1,10 @@
 package com.company.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
+
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -8,6 +12,9 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class ChangeStatusDTO {
+    @NotNull
     private Boolean status;
-    private String id;
+    @NotNull
+    @NotBlank
+    private UUID id;
 }

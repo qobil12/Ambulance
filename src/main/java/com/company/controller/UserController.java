@@ -5,8 +5,11 @@ import com.company.dto.UserDTO;
 import com.company.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/user")
@@ -18,14 +21,19 @@ public class UserController {
     }
 
     @Operation(summary = "User registration API",description = "By this method user is registered.")
-    @PostMapping("/adm/registration")
-    public ResponseEntity<String> registration(@RequestBody @Valid UserDTO dto) {
-        String registration = userService.registration(dto);
-        return ResponseEntity.ok().body(registration);
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<UserDTO> registration(@RequestBody @Valid UserDTO dto) {
+        return ResponseEntity.ok().body(userService.registration(dto));
     }
-    @Operation(summary = "Change info",description = "By this method user can change all or necessery infos about himself")
+    @GetMapping
+    public ResponseEntity<List<UserDTO>> getUsers(){
+        return ResponseEntity.ok().body(null);
+    }
+
+    @Operation(summary = "Change info",description = "By this method user can change all or necessary infos about himself")
     @PutMapping("/change_info_details")
-    public ResponseEntity<String> changeInfo(@RequestBody ChangeUserInfoDTO dto){
-        return ResponseEntity.ok().body(userService.changeUserInfos(dto));
+    public ResponseEntity<UserDTO> changeInfo(@RequestBody @Valid ChangeUserInfoDTO userDto){
+        return ResponseEntity.ok().body(userService.changeUserInfos(userDto));
     }
 }

@@ -4,6 +4,7 @@ import com.company.dto.ChangeDoctorInfoDTO;
 import com.company.dto.DoctorDTO;
 import com.company.entity.Doctor;
 import com.company.exceptions.ItemNotFoundException;
+import com.company.mapper.DoctorMapper;
 import com.company.repository.BrigadeRepository;
 import com.company.repository.DoctorRepository;
 import com.company.repository.RegionRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -19,6 +21,7 @@ public class DoctorService {
     private final DoctorRepository repository;
     private final RegionRepository regionRepository;
     private final BrigadeRepository brigadeRepository;
+    private final DoctorMapper doctorMapper=DoctorMapper.INSTANCE;
 
     public DoctorService(DoctorRepository repository, RegionRepository regionRepository, BrigadeRepository brigadeRepository) {
         this.repository = repository;
@@ -26,31 +29,18 @@ public class DoctorService {
         this.brigadeRepository = brigadeRepository;
     }
 
-    public void createDoctor(DoctorDTO dto) {
-        Doctor doctor=new Doctor();
-        doctor.setName(dto.getName());
-        doctor.setRegion(regionRepository.getRegionByName(dto.getRegionName().toUpperCase()));
-        doctor.setSurname(dto.getSurname());
-        doctor.setPhoneNumber(dto.getPhoneNumber());
-
-        repository.save(doctor);
+    public DoctorDTO createDoctor(DoctorDTO dto) {
+        regionRepository.findById(dto.getRegionId()).orElseThrow(()->new ItemNotFoundException("Region doesn't exist with this ID"));
+       return doctorMapper.toDoctorDTO(repository.save(doctorMapper.toDoctorEntity(dto)));
     }
 
     public List<DoctorDTO> getAllFree() {
+
         return repository.findAllByBrigadeNull()
-                .stream()
-                .map(this::toDTO)
+                .stream().map(doctorMapper::toDoctorDTO)
                 .collect(Collectors.toList());
     }
-
-    public DoctorDTO toDTO(Doctor doctor){
-        return DoctorDTO.builder().surname(doctor.getSurname())
-                .regionName(doctor.getRegion().getName())
-                .phoneNumber(doctor.getPhoneNumber())
-                .name(doctor.getName()).build();
-    }
-
-    public String delete(String id) {
+    public String delete(UUID id) {
         if(!repository.existsById(id)){
             throw new ItemNotFoundException("Doctor doesn't exist with this id.");
         }

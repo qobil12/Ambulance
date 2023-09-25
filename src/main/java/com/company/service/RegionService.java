@@ -1,35 +1,44 @@
 package com.company.service;
 
-import com.company.dto.RegionChangeDTO;
 import com.company.dto.RegionDTO;
 import com.company.entity.Region;
+import com.company.exceptions.ItemNotFoundException;
+import com.company.mapper.RegionMapper;
 import com.company.repository.RegionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 public class RegionService {
+
+    final
+    RegionMapper regionMapper=RegionMapper.INSTANCE;
     final
     RegionRepository repository;
 
-    public RegionService(RegionRepository repository) {
+    @Autowired
+    public RegionService( RegionRepository repository) {
         this.repository = repository;
     }
 
-    public void createRegion(RegionDTO dto) {
+    public RegionDTO createRegion(RegionDTO dto) {
         Region region = new Region();
         region.setName(dto.getName().toUpperCase());
-        repository.save(region);
+        return regionMapper.toRegionDTO(repository.save(region));
     }
 
-    public String delete(String id) {
+    public void delete(UUID id) {
         repository.deleteById(id);
-        return "Successfully deleted";
     }
 
-    public String changeName(RegionChangeDTO dto) {
-        Region region = repository.findById(dto.getId()).get();
+    public RegionDTO changeName(RegionDTO dto) {
+        Region region = repository.findById(dto.getId()).orElseThrow(() -> new ItemNotFoundException("Region doesn't exist with this ID"));
+
         region.setName(dto.getName());
-        repository.save(region);
-        return "Region's name successfully changed";
+        var saveRegion=repository.save(region);
+        return regionMapper.toRegionDTO(saveRegion);
+
     }
 }

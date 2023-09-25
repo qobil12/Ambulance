@@ -2,57 +2,46 @@ package com.company.service;
 
 import com.company.dto.ChangeUserInfoDTO;
 import com.company.dto.UserDTO;
-import com.company.entity.UserEntity;
 import com.company.exceptions.ItemAlreadyExistsException;
 import com.company.exceptions.ItemNotFoundException;
+import com.company.mapper.UserMapper;
 import com.company.repository.UserRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
-import java.util.stream.Stream;
 
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final UserMapper userMapper = UserMapper.INSTANCE;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
+
     }
 
-    public String registration(UserDTO dto) {
+    public UserDTO registration(UserDTO dto) {
 
-        if(userRepository.existsByPhoneNumber(dto.getPhoneNumber())){
-         throw new ItemAlreadyExistsException("Phone number already exists ! Enter another number !");
+        if (userRepository.existsByPhoneNumber(dto.getPhoneNumber())) {
+            throw new ItemAlreadyExistsException("Phone number already exists ! Enter another number !");
         }
 
-        UserEntity user=new UserEntity();
-        user.setName(dto.getName());
-        user.setSurname(dto.getSurname());
-        user.setPhoneNumber(dto.getPhoneNumber());
-        userRepository.save(user);
+        var saveUser = userRepository.save(userMapper.toUserEntity(dto));
 
-        return "User successfully was registered !";
+        return userMapper.toUserDto(saveUser);
     }
 
-    public String changeUserInfos(ChangeUserInfoDTO dto) {
-        Optional<UserEntity> optional = userRepository.findById(dto.getId());
-        if(optional.isEmpty()){
-            throw new ItemNotFoundException("User doesn't exist with this id.");
-        }
-        UserEntity user = optional.get();
-        Stream.of(dto).forEach(d->{
-            if(d.getPhoneNumber()!=null){
-                user.setPhoneNumber(d.getPhoneNumber());
-            }
-            if(d.getSurname()!=null){
-                user.setSurname(d.getSurname());
-            }
-            if(d.getName()!=null){
-                user.setName(d.getName());
-            }
-        });
-        userRepository.save(user);
+    public UserDTO changeUserInfos(ChangeUserInfoDTO dto) {
+        var user = userRepository.findById(dto.getId()).orElseThrow(() -> new ItemNotFoundException("Not found"));
 
-        return "User's information changed successfully ";
+        if (dto.getPhoneNumber() != null) {
+            user.setPhoneNumber(dto.getPhoneNumber());
+        }
+        if (dto.getSurname() != null) {
+            user.setSurname(dto.getSurname());
+        }
+        if (dto.getName() != null) {
+            user.setName(dto.getName());
+        }
+
+        return userMapper.toUserDto(userRepository.save(user));
     }
 }

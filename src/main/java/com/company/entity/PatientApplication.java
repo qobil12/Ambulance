@@ -8,12 +8,8 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PatientApplication {
+public class PatientApplication extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Setter(AccessLevel.NONE)
-    private String id;
     @Column(nullable = false)
     private String userId;
     @Column(nullable = false)

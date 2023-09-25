@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("api/v1/brigade")
@@ -35,7 +36,7 @@ public class BrigadeController {
 
     @Operation(summary = "Delete brigade by id",description = "By this method you can delete brigade by its id")
     @DeleteMapping("/delete_by_id/{id}")
-    public ResponseEntity<String> deleteById(@PathVariable String id){
+    public ResponseEntity<String> deleteById(@PathVariable UUID id){
         brigadeService.deleteById(id);
       return   ResponseEntity.ok().body("Brigade successfully deleted");
     }

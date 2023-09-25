@@ -10,11 +10,8 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Setter(AccessLevel.NONE)
-    private String id;
+public class UserEntity extends BaseEntity{
+
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)

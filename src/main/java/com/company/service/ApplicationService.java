@@ -41,7 +41,7 @@ public class ApplicationService {
         application.setCreated_date(LocalDateTime.now());
         application.setPatient(userRepository.getById(patientApplication.getUserId()));
         application.setFullAddress(patientApplication.getAddress());
-        brigade.setIsBusy(true);
+        brigade.setBusy(true);
         patientApplication.setIsAttached(true);
 
         brigadeRepository.save(brigade);

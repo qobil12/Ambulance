@@ -8,12 +8,9 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Doctor {
+public class Doctor extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Setter(AccessLevel.NONE)
-    private String id;
+
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)

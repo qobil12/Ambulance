@@ -1,8 +1,11 @@
 package com.company.repository;
 
 import com.company.entity.Region;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface RegionRepository extends CrudRepository<Region,String> {
+import java.util.UUID;
+
+public interface RegionRepository extends JpaRepository<Region, UUID> {
     Region getRegionByName(String name);
+
 }

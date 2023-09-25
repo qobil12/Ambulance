@@ -2,18 +2,11 @@ package com.company.entity;
 
 import com.company.enums.CarModel;
 import jakarta.persistence.*;
-import lombok.*;
 
 @Entity
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class Car {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Setter(AccessLevel.NONE)
-    private String id;
+@Table(name = "car")
+public class Car extends BaseEntity{
+
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private CarModel model;
@@ -25,4 +18,36 @@ public class Car {
     @JoinColumn(name = "brigade")
     @OneToOne
     private Brigade brigade;
+
+    public CarModel getModel() {
+        return model;
+    }
+
+    public void setModel(CarModel model) {
+        this.model = model;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
+    public Brigade getBrigade() {
+        return brigade;
+    }
+
+    public void setBrigade(Brigade brigade) {
+        this.brigade = brigade;
+    }
 }

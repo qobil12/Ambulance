@@ -12,6 +12,7 @@ import com.company.repository.RegionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,7 +49,7 @@ public class BrigadeService {
                 .collect(Collectors.toList());
     }
 
-    public void deleteById(String id) {
+    public void deleteById(UUID id) {
         brigadeRepository.deleteById(id);
     }
 

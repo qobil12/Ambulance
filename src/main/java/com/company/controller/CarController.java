@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("api/v1/car")
@@ -20,9 +21,8 @@ public class CarController {
 
     @Operation(summary = "Creates a car.",description = "Creates a new car entity.")
     @PostMapping("/create")
-    public ResponseEntity<String> createCar(@RequestBody CarDTO dto) {
-        carService.createCar(dto);
-        return ResponseEntity.ok().body("Car succesfully created !");
+    public ResponseEntity<CarDTO> createCar(@RequestBody CarDTO dto) {
+        return ResponseEntity.ok().body(carService.createCar(dto));
     }
 
     @Operation(summary = "Get all free cars", description = "By this method you can get list of all cars that doesn't have brigade .")
@@ -32,7 +32,7 @@ public class CarController {
     }
     @Operation(summary = "Delete car",description = "You can delete car by  this method giving id")
     @DeleteMapping("/delete_car/{id}")
-    public ResponseEntity<String> deleteCarById(@PathVariable String id){
+    public ResponseEntity<String> deleteCarById(@PathVariable UUID id){
         return ResponseEntity.ok().body(carService.deleteById(id));
     }
     @Operation(summary = "Change car's number",description = "By this method admin can change car's number.")
