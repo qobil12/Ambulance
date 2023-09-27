@@ -3,6 +3,7 @@ package com.company.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 import java.util.UUID;
@@ -24,6 +25,6 @@ public class DoctorDTO {
     private String surname;
     @NotNull
     @NotBlank
-    @Email(message = "Number must contains only with numbers.",regexp = "\\+998\\d{9}")
+    @Pattern(regexp = "^\\+998\\d{9}$", message = "Invalid phone number format")
     private String phoneNumber;
 }

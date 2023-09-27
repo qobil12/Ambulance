@@ -2,7 +2,7 @@ POST http://localhost:8081/api/v1/doctor/create
 Content-Type: application/json
 
 {
-  "regionId": "e4381036-5cf5-11ee-8c99-0242ac120002",
+  "regionId": "24d1a36c-5d2c-457e-b138-a95956671224",
   "name": "Jasmina",
   "surname": "Odilova",
   "phoneNumber": "+998337806713"

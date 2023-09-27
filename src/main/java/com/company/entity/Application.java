@@ -22,7 +22,7 @@ public class Application {
     @Column(nullable = false)
     private LocalDateTime created_date;
 
-    @JoinColumn(nullable = false, name = "user")
+    @JoinColumn(nullable = false,name = "patient")
     @ManyToOne(fetch = FetchType.LAZY)
     private UserEntity user;
 

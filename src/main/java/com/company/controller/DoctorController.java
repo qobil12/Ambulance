@@ -4,6 +4,7 @@ import com.company.dto.ChangeDoctorInfoDTO;
 import com.company.dto.DoctorDTO;
 import com.company.service.DoctorService;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +22,7 @@ public class DoctorController {
     }
     @Operation(summary = "Creates a doctor entity.")
     @PostMapping("/create")
-    public ResponseEntity<DoctorDTO> createDoctor(@RequestBody DoctorDTO dto){
+    public ResponseEntity<DoctorDTO> createDoctor(@RequestBody @Valid DoctorDTO dto){
         return ResponseEntity.ok().body(doctorService.createDoctor(dto));
     }
     @Operation(summary = "Get all free doctors",description = "By this method you can get list of all doctors that doesn't have brigade .")

@@ -1,9 +1,9 @@
-POST http://localhost:8080/api/v1/user/adm/registration
+POST http://localhost:8081/api/v1/user/registration
 Content-Type: application/json
 
 {
-  "name": "Olimjon",
-  "surname": "Dadaboyev",
-  "phoneNumber": "+998957777446"
+  "name": "Jonibek",
+  "surname": "Shodibayev",
+  "phoneNumber": "+998947777555"
 }
 

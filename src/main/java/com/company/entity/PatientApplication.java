@@ -21,8 +21,6 @@ public class PatientApplication {
     @Column(nullable = false)
     private UUID userId;
 
-    @Column(nullable = false)
-    private String surname;
 
     @Column(nullable = false)
     private String address;

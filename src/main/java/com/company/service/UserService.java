@@ -21,8 +21,10 @@ public class UserService {
     }
 
     public UserDTO registration(UserDTO dto) {
-        userRepository.findByPhoneNumber(dto.getPhoneNumber()).orElseThrow(() -> new ItemAlreadyExistsException("User already exists with this phone number !"));
-
+        userRepository.findByPhoneNumber(dto.getPhoneNumber()).ifPresent(user -> {
+            throw new ItemAlreadyExistsException("User already exists with this phone number !");
+        });
+//
         var saveUser = userRepository.save(userMapper.toUserEntity(dto));
 
         return userMapper.toUserDto(saveUser);
