@@ -30,7 +30,7 @@ public class RegionService {
     }
 
     public void delete(UUID id) {
-        repository.deleteById(id);
+        repository.delete(repository.findById(id).orElseThrow(()->new ItemNotFoundException("User doesn't exist with this ID")));
     }
 
     public RegionDTO changeName(RegionDTO dto) {
@@ -39,6 +39,5 @@ public class RegionService {
         region.setName(dto.getName());
         var saveRegion=repository.save(region);
         return regionMapper.toRegionDTO(saveRegion);
-
     }
 }

@@ -5,16 +5,14 @@ import com.company.dto.ApplicationInfoDTO;
 import com.company.dto.ChangeStatusDTO;
 import com.company.dto.PatientApplicationDTO;
 import com.company.entity.Application;
-import com.company.entity.Brigade;
 import com.company.entity.PatientApplication;
 import com.company.exceptions.ItemNotFoundException;
+import com.company.mapper.ApplicationMapper;
+import com.company.mapper.PatientApplicationMapper;
 import com.company.repository.*;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ApplicationService {
@@ -23,6 +21,8 @@ public class ApplicationService {
     final RegionRepository regionRepository;
     final UserRepository userRepository;
     final PatientApplicationRepository patientApplicationRepository;
+    final ApplicationMapper applicationMapper = ApplicationMapper.INSTANCE;
+    final PatientApplicationMapper patientApplicationMapper = PatientApplicationMapper.INSTANCE;
 
     public ApplicationService(ApplicationRepository applicationRepository, BrigadeRepository brigadeRepository, RegionRepository regionRepository, UserRepository userRepository, PatientApplicationRepository patientApplicationRepository) {
         this.applicationRepository = applicationRepository;
@@ -32,23 +32,14 @@ public class ApplicationService {
         this.patientApplicationRepository = patientApplicationRepository;
     }
 
-    public String  createApplication(ApplicationDTO dto) {
-        Brigade brigade = brigadeRepository.getBrigadeById(dto.getBrigadeId());
-        PatientApplication patientApplication=patientApplicationRepository.getById(dto.getPatientApplicationId());
-        Application application = new Application();
-        application.setBrigade(brigade);
-        application.setRegion(regionRepository.getRegionByName(patientApplication.getRegionName().toUpperCase()));
-        application.setCreated_date(LocalDateTime.now());
-        application.setPatient(userRepository.getById(patientApplication.getUserId()));
-        application.setFullAddress(patientApplication.getAddress());
-        brigade.setBusy(true);
+
+    public ApplicationInfoDTO createApplication(ApplicationDTO dto) {
+        brigadeRepository.findById(dto.getBrigadeId()).orElseThrow(() -> new ItemNotFoundException("Brigade doesn't exists with this ID"));
+        PatientApplication patientApplication = patientApplicationRepository.findById(dto.getPatientApplicationId()).orElseThrow(() -> new ItemNotFoundException("Patient doesn't exist with this ID "));
+        regionRepository.findById(patientApplication.getRegionId()).orElseThrow(() -> new ItemNotFoundException("Region doesn't exist with this ID"));
         patientApplication.setIsAttached(true);
 
-        brigadeRepository.save(brigade);
-        applicationRepository.save(application);
-        patientApplicationRepository.save(patientApplication);
-        return "Patient's application successfully joined with brigade !";
-
+        return applicationMapper.toApplicationInfoDTO(applicationMapper.toEntity(dto, patientApplication));
     }
 
     public void changeStatus(ChangeStatusDTO dto) {
@@ -59,60 +50,25 @@ public class ApplicationService {
 
         return applicationRepository.findAllByIsClosed(status)
                 .stream()
-                .map(this::toDTO)
-                .collect(Collectors.toList());
-
+                .map(applicationMapper::toApplicationInfoDTO).toList();
     }
 
     public List<ApplicationInfoDTO> getAllApplicationsList() {
-        Iterable<Application> applications = applicationRepository.findAll();
-        return getApplicationInfoDTOS(applications);
-    }
-
-    private List<ApplicationInfoDTO> getApplicationInfoDTOS(Iterable<Application> applications) {
-        if (!applications.iterator().hasNext()) {
-            throw new ItemNotFoundException("Applications not found!");
-        }
-
-        List<ApplicationInfoDTO> dtoList = new ArrayList<>();
-
-        applications.forEach(application -> {
-                    ApplicationInfoDTO dto = toDTO(application);
-                    dtoList.add(dto);
-                }
-        );
-        return dtoList;
-    }
-
-
-    private ApplicationInfoDTO toDTO(Application application) {
-
-        return ApplicationInfoDTO.builder()
-                .status(application.getIsClosed())
-                .createdDate(application.getCreated_date())
-                .brigadeId(application.getBrigade().getId())
-                .regionName(application.getRegion().getName())
-                .patientFullName(application.getPatient().getName() + " " + application.getPatient().getSurname())
-                .fullAddress(application.getFullAddress())
-                .build();
+        List<Application> applications = applicationRepository.findAll();
+        return applications.stream().map(applicationMapper::toApplicationInfoDTO).toList();
     }
 
     public PatientApplicationDTO createPatientApplication(PatientApplicationDTO dto) {
 
-        PatientApplication patientApplication = new PatientApplication();
-        patientApplication.setUserId(dto.getUserId());
-        patientApplication.setAddress(dto.getAddress());
-        patientApplication.setIllness(dto.getIllness());
-        patientApplication.setLatitude(dto.getLatitude());
-        patientApplication.setLongitude(dto.getLongitude());
-        patientApplicationRepository.save(patientApplication);
+        regionRepository.findById(dto.getRegionId()).orElseThrow(() -> new ItemNotFoundException("Region doesn't exist with this ID !"));
+        userRepository.findById(dto.getUserId()).orElseThrow(() -> new ItemNotFoundException(" User doesn't exist whit this ID !"));
 
-        return dto;
+        return patientApplicationMapper.toPatientApplicationDTO(patientApplicationMapper.toPatientApplicationEntity(dto));
         //lat : 41.311117
         //long : 69.279761
     }
 
     public List<PatientApplication> getPatientApplications() {
-       return patientApplicationRepository.findAllByIsAttached(false);
+        return patientApplicationRepository.findAllByIsAttached(false);
     }
 }

@@ -1,8 +1,8 @@
-POST http://localhost:8080/api/v1/car
+POST http://localhost:8081/api/v1/car/create
 Content-Type: application/json
 
 {
-  "model": "mercedes",
-  "number": "01|777 HBA",
-  "regionName": "mirzo ulugbek"
+  "model": "BMW",
+  "number": "01 | 123 BAA",
+  "regionId": "e4381036-5cf5-11ee-8c99-0242ac120002"
 }

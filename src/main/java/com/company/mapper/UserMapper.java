@@ -10,9 +10,8 @@ import org.mapstruct.factory.Mappers;
 public abstract class UserMapper {
     public static final UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-
     public abstract UserDTO toUserDto(final UserEntity user);
 
     public abstract UserEntity toUserEntity(final UserDTO userDTO);
-    //public abstract UserEntity toUserEntity(final ChangeUserInfoDTO userInfoDTO);
+
 }

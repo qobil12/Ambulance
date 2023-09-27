@@ -31,5 +31,5 @@ public class PatientApplicationDTO {
     private Long longitude;
     @NotNull
     @NotBlank
-    private String regionName;
+    private UUID regionId;
 }

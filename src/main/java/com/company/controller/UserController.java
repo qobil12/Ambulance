@@ -10,9 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
-@RequestMapping("api/v1/user")
+@RequestMapping("api/v1/user/")
 public class UserController {
     private final UserService userService;
 
@@ -21,12 +22,12 @@ public class UserController {
     }
 
     @Operation(summary = "User registration API",description = "By this method user is registered.")
-    @PostMapping
+    @PostMapping("/registration")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<UserDTO> registration(@RequestBody @Valid UserDTO dto) {
         return ResponseEntity.ok().body(userService.registration(dto));
     }
-    @GetMapping
+    @GetMapping("/get_users")
     public ResponseEntity<List<UserDTO>> getUsers(){
         return ResponseEntity.ok().body(null);
     }
@@ -35,5 +36,10 @@ public class UserController {
     @PutMapping("/change_info_details")
     public ResponseEntity<UserDTO> changeInfo(@RequestBody @Valid ChangeUserInfoDTO userDto){
         return ResponseEntity.ok().body(userService.changeUserInfos(userDto));
+    }
+    @Operation(summary = "Delete user")
+    @DeleteMapping("/delete_user/{id}")
+    public void deleteUser(@PathVariable UUID id){
+        userService.deleteUser(id);
     }
 }

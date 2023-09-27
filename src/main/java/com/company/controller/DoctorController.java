@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/v1/doctor")
+@RequestMapping("api/v1/doctor/")
 public class DoctorController {
 
     private final DoctorService doctorService;
@@ -31,8 +31,8 @@ public class DoctorController {
     }
     @Operation(summary = "Delete doctor",description = "By this method admin can delete doctor.")
     @DeleteMapping("/delete_doctor/{id}")
-    public ResponseEntity<String> deleteDoctor(@PathVariable UUID id){
-        return ResponseEntity.ok().body(doctorService.delete(id));
+    public void deleteDoctor(@PathVariable UUID id){
+        doctorService.delete(id);
     }
     @Operation(summary = "Change info about doctor",description = "By this method admin can change all or necessery info about doctor.")
     @PutMapping("/change_info")

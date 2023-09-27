@@ -13,5 +13,5 @@ import java.util.UUID;
 public class ApplicationDTO {
     @NotNull(message = "Brigade id mustn't be null")
     private UUID brigadeId;
-    private String patientApplicationId;
+    private UUID patientApplicationId;
 }

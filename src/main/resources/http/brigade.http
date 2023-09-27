@@ -1,8 +1,8 @@
-POST http://localhost:8080/api/v1/brigade
+POST http://localhost:8081/api/v1/brigade/create
 Content-Type: application/json
 
 {
-  "carNumber": "01|546 HBA",
-  "regionName": "chilonzor",
-  "doctorPhoneNumber": "+998977805714"
+  "carId": "a7ec71c4-cf3a-49dc-b9b5-cda070956e63",
+  "regionId": "e4381036-5cf5-11ee-8c99-0242ac120002",
+  "doctorId": "d7ead460-b024-479c-b8d6-779933639f43"
 }

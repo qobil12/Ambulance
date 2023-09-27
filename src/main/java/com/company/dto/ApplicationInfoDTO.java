@@ -22,7 +22,7 @@ public class ApplicationInfoDTO {
     private String patientFullName;
     @NotNull
     @NotBlank
-    private String regionName;
+    private UUID regionId;
     @NotNull
     @NotBlank
     private String fullAddress;

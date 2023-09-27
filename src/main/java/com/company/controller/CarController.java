@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/v1/car")
+@RequestMapping("api/v1/car/")
 public class CarController {
     private final CarService carService;
 
@@ -32,8 +32,8 @@ public class CarController {
     }
     @Operation(summary = "Delete car",description = "You can delete car by  this method giving id")
     @DeleteMapping("/delete_car/{id}")
-    public ResponseEntity<String> deleteCarById(@PathVariable UUID id){
-        return ResponseEntity.ok().body(carService.deleteById(id));
+    public void deleteCarById(@PathVariable UUID id){
+       carService.deleteById(id);
     }
     @Operation(summary = "Change car's number",description = "By this method admin can change car's number.")
     @PutMapping("/change_number")

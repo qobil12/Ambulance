@@ -3,7 +3,6 @@ package com.company.service;
 import com.company.dto.CarDTO;
 import com.company.dto.ChangeCarNumberDTO;
 import com.company.entity.Car;
-import com.company.enums.CarModel;
 import com.company.exceptions.ItemAlreadyExistsException;
 import com.company.exceptions.ItemNotFoundException;
 import com.company.mapper.CarMapper;
@@ -53,12 +52,8 @@ public class CarService {
 //                .model(car.getModel().name()).build();
 //    }
 
-    public String deleteById(UUID id) {
-        if(!carRepository.existsById(id)){
-            throw new ItemNotFoundException("Car with this id not found");
-        }
-        carRepository.deleteById(id);
-        return "Car successfully deleted !";
+    public void deleteById(UUID id) {
+        carRepository.delete(carRepository.findById(id).orElseThrow(()-> new ItemNotFoundException("Car doesn't exist with this ID !")));
     }
 
     public String changeNumber(ChangeCarNumberDTO dto) {

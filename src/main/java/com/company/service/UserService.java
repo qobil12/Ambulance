@@ -8,6 +8,8 @@ import com.company.mapper.UserMapper;
 import com.company.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class UserService {
     private final UserRepository userRepository;
@@ -19,10 +21,7 @@ public class UserService {
     }
 
     public UserDTO registration(UserDTO dto) {
-
-        if (userRepository.existsByPhoneNumber(dto.getPhoneNumber())) {
-            throw new ItemAlreadyExistsException("Phone number already exists ! Enter another number !");
-        }
+        userRepository.findByPhoneNumber(dto.getPhoneNumber()).orElseThrow(() -> new ItemAlreadyExistsException("User already exists with this phone number !"));
 
         var saveUser = userRepository.save(userMapper.toUserEntity(dto));
 
@@ -43,5 +42,9 @@ public class UserService {
         }
 
         return userMapper.toUserDto(userRepository.save(user));
+    }
+
+    public void deleteUser(UUID id) {
+        userRepository.delete(userRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("User doesn't exist with this ID")));
     }
 }

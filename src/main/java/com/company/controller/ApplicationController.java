@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/application")
+@RequestMapping("/api/v1/application/")
 @RequiredArgsConstructor
 public class ApplicationController {
     private final ApplicationService applicationService;
 
     @Operation( summary = "Create Application", description = "By this method you can create an application .")
-    @PostMapping(name = "/create")
-    public ResponseEntity<String> createApplication(@RequestBody ApplicationDTO dto) {
+    @PostMapping("/create")
+    public ResponseEntity<ApplicationInfoDTO> createApplication(@RequestBody ApplicationDTO dto) {
 
         return ResponseEntity.ok().body(applicationService.createApplication(dto));
     }
@@ -53,6 +53,5 @@ public class ApplicationController {
     public ResponseEntity<List<PatientApplication>> getListOfPatientApplications(){
         return ResponseEntity.ok().body(applicationService.getPatientApplications());
     }
-
 
 }

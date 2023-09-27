@@ -40,12 +40,10 @@ public class DoctorService {
                 .stream().map(doctorMapper::toDoctorDTO)
                 .collect(Collectors.toList());
     }
-    public String delete(UUID id) {
-        if(!repository.existsById(id)){
-            throw new ItemNotFoundException("Doctor doesn't exist with this id.");
-        }
-        repository.deleteById(id);
-        return "Doctor successfully deleted.";
+    public void delete(UUID id) {
+
+        repository.delete(repository.findById(id).orElseThrow(()-> new ItemNotFoundException("Doctor doesn't exist with this ID")));
+
     }
     public String changeDoctorInfo(ChangeDoctorInfoDTO dto){
         Optional<Doctor> optional = repository.findById(dto.getDoctorId());
