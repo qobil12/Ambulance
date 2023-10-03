@@ -20,4 +20,6 @@ public class ChangeUserInfoDTO {
     private String name;
     private String surname;
     private String phoneNumber;
+    private String username;
+    private String password;
 }

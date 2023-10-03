@@ -1,5 +1,6 @@
 package com.company.entity;
 
+import com.company.enums.ProfileStatus;
 import com.company.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -26,5 +27,13 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role= Role.USER;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ProfileStatus status= ProfileStatus.BLOCKED;
+    @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
+    private String username;
 
 }

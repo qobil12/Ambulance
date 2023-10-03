@@ -1,8 +1,8 @@
 package com.company.dto;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 import java.util.UUID;
@@ -16,7 +16,7 @@ public class CarDTO {
     @NotNull
     @NotBlank
     private String model;
-    @Email(regexp = "01 \\| \\d{3} [A-Z]{3}")
+    @Pattern(regexp = "01 \\| \\d{3} [A-Z]{3}")
     @NotNull
     @NotBlank
     private String number;

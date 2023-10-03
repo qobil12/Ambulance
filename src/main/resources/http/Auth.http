@@ -1,0 +1,19 @@
+POST http://localhost:8081/api/v1/auth/registration
+Content-Type: application/json
+
+{
+  "name": "Dispatch",
+  "surname": "Eshatov",
+  "phoneNumber": "+998337801212",
+  "password": "1111",
+  "username": "dis12"
+}
+
+### ADMIN
+POST http://localhost:8081/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "phoneNumber": "+998337801212",
+  "password": "1111"
+}

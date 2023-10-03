@@ -11,7 +11,6 @@ import com.company.repository.RegionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -32,11 +31,6 @@ public class CarService {
         if(carRepository.existsByNumber(dto.getNumber())){
             throw new ItemAlreadyExistsException("Car with this number already exists");
         }
-//        Car car = new Car();
-//        car.setModel(CarModel.valueOf(dto.getModel().toUpperCase()));
-//        car.setRegion(regionRepository.getRegionByName(dto.getRegionId()));
-//        car.setNumber(dto.getNumber());
-//
       return carMapper.toCarDTO(carRepository.save(carMapper.toCarEntity(dto)));
     }
 
@@ -46,24 +40,14 @@ public class CarService {
                 .collect(Collectors.toList());
     }
 
-//    private CarDTO toDTO(Car car){
-//        return CarDTO.builder().number(car.getNumber())
-//                .regionId(car.getRegion().getName())
-//                .model(car.getModel().name()).build();
-//    }
-
     public void deleteById(UUID id) {
         carRepository.delete(carRepository.findById(id).orElseThrow(()-> new ItemNotFoundException("Car doesn't exist with this ID !")));
     }
 
-    public String changeNumber(ChangeCarNumberDTO dto) {
-        Optional<Car> byId = carRepository.findById(dto.getId());
-        if(byId.isEmpty()){
-            throw new ItemNotFoundException("Car not found with this id");
-        }
-        Car car = byId.get();
-        car.setNumber(dto.getNewNumber());
-        carRepository.save(car);
-        return "Car's number successfully changed.";
+    public CarDTO changeNumber(ChangeCarNumberDTO dto) {
+        Car car = carRepository.findById(dto.getId()).orElseThrow(() -> new ItemNotFoundException("Car not found with this ID"));
+        if(!car.getNumber().isEmpty()) car.setNumber(dto.getNewNumber());
+
+        return carMapper.toCarDTO(carRepository.save(car));
     }
 }

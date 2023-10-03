@@ -2,6 +2,7 @@ package com.company.service;
 
 import com.company.dto.ChangeUserInfoDTO;
 import com.company.dto.UserDTO;
+import com.company.entity.UserEntity;
 import com.company.exceptions.ItemAlreadyExistsException;
 import com.company.exceptions.ItemNotFoundException;
 import com.company.mapper.UserMapper;
@@ -20,15 +21,7 @@ public class UserService {
 
     }
 
-    public UserDTO registration(UserDTO dto) {
-        userRepository.findByPhoneNumber(dto.getPhoneNumber()).ifPresent(user -> {
-            throw new ItemAlreadyExistsException("User already exists with this phone number !");
-        });
-//
-        var saveUser = userRepository.save(userMapper.toUserEntity(dto));
 
-        return userMapper.toUserDto(saveUser);
-    }
 
     public UserDTO changeUserInfos(ChangeUserInfoDTO dto) {
         var user = userRepository.findById(dto.getId()).orElseThrow(() -> new ItemNotFoundException("Not found"));
@@ -42,11 +35,23 @@ public class UserService {
         if (dto.getName() != null) {
             user.setName(dto.getName());
         }
+        if (dto.getPassword() != null) {
+            user.setPassword(dto.getPassword());
+        }
+        if (dto.getUsername() != null) {
+            userRepository.findByUsername(dto.getUsername()).ifPresent(userEntity->{
+               throw new ItemAlreadyExistsException("User already exist with this username !");
+            });
+            user.setUsername(dto.getName());
+        }
 
         return userMapper.toUserDto(userRepository.save(user));
     }
 
     public void deleteUser(UUID id) {
         userRepository.delete(userRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("User doesn't exist with this ID")));
+    }
+    public UserEntity getUserById(UUID id){
+        return userRepository.findById(id).orElseThrow(()-> new ItemNotFoundException("User doesn't exist with this ID"));
     }
 }

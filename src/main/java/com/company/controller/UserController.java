@@ -21,12 +21,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @Operation(summary = "User registration API",description = "By this method user is registered.")
-    @PostMapping("/registration")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<UserDTO> registration(@RequestBody @Valid UserDTO dto) {
-        return ResponseEntity.ok().body(userService.registration(dto));
-    }
+
     @GetMapping("/get_users")
     public ResponseEntity<List<UserDTO>> getUsers(){
         return ResponseEntity.ok().body(null);

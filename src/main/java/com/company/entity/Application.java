@@ -20,7 +20,7 @@ public class Application {
     private UUID id;
 
     @Column(nullable = false)
-    private LocalDateTime created_date;
+    private LocalDateTime createdDate;
 
     @JoinColumn(nullable = false,name = "patient")
     @ManyToOne(fetch = FetchType.LAZY)

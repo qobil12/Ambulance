@@ -37,7 +37,7 @@ public class DoctorController {
     }
     @Operation(summary = "Change info about doctor",description = "By this method admin can change all or necessery info about doctor.")
     @PutMapping("/change_info")
-    public ResponseEntity<String> changeInfo(@RequestBody ChangeDoctorInfoDTO dto){
+    public ResponseEntity<DoctorDTO> changeInfo(@RequestBody ChangeDoctorInfoDTO dto){
             return ResponseEntity.ok().body(doctorService.changeDoctorInfo(dto));
     }
 }

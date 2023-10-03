@@ -30,7 +30,6 @@ public class ApplicationInfoDTO {
     @NotBlank
     @PastOrPresent
     private LocalDateTime createdDate;
-    @NotNull
-    @NotBlank
-    private Boolean status;
+    private Boolean isClosed = false;
+
 }

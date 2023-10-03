@@ -22,4 +22,13 @@ public class UserDTO {
     @NotNull(message = "Number mustn't be null")
     @Pattern(regexp = "^\\+998\\d{9}$", message = "Invalid phone number format")
     private String phoneNumber;
+
+    @NotNull
+    @NotBlank
+    private String password;
+    @NotBlank
+    @NotNull
+    private String username;
+
+
 }

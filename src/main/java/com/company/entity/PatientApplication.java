@@ -23,7 +23,7 @@ public class PatientApplication {
 
 
     @Column(nullable = false)
-    private String address;
+    private String fullAddress;
 
     @Column(nullable = false)
     private String illness;

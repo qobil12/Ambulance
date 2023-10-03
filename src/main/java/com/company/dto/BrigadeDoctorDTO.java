@@ -1,6 +1,5 @@
 package com.company.dto;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -18,8 +17,7 @@ public class BrigadeDoctorDTO {
     @NotBlank
     @NotNull
     private UUID brigadeId;
-    @Email(regexp = "\\+998\\d{9}")
     @NotNull
     @NotBlank
-    private String DoctorPhoneNumber;
+    private UUID doctorId;
 }

@@ -37,7 +37,7 @@ public class RegionService {
         Region region = repository.findById(dto.getId()).orElseThrow(() -> new ItemNotFoundException("Region doesn't exist with this ID"));
 
         region.setName(dto.getName());
-        var saveRegion=repository.save(region);
-        return regionMapper.toRegionDTO(saveRegion);
+
+        return regionMapper.toRegionDTO(repository.save(region));
     }
 }

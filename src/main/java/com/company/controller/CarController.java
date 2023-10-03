@@ -37,7 +37,7 @@ public class CarController {
     }
     @Operation(summary = "Change car's number",description = "By this method admin can change car's number.")
     @PutMapping("/change_number")
-    public ResponseEntity<String> changeCarNumber(@RequestBody ChangeCarNumberDTO dto){
+    public ResponseEntity<CarDTO> changeCarNumber(@RequestBody ChangeCarNumberDTO dto){
         return ResponseEntity.ok().body(carService.changeNumber(dto));
     }
 }

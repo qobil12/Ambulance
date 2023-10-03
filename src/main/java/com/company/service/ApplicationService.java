@@ -12,6 +12,7 @@ import com.company.mapper.PatientApplicationMapper;
 import com.company.repository.*;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -38,8 +39,11 @@ public class ApplicationService {
         PatientApplication patientApplication = patientApplicationRepository.findById(dto.getPatientApplicationId()).orElseThrow(() -> new ItemNotFoundException("Patient doesn't exist with this ID "));
         regionRepository.findById(patientApplication.getRegionId()).orElseThrow(() -> new ItemNotFoundException("Region doesn't exist with this ID"));
         patientApplication.setIsAttached(true);
-
-        return applicationMapper.toApplicationInfoDTO(applicationMapper.toEntity(dto, patientApplication));
+        Application application = applicationMapper.toEntity(dto, patientApplication);
+        application.setCreatedDate(LocalDateTime.now());
+        application.setIsClosed(false);
+        applicationRepository.save(application);
+        return applicationMapper.toApplicationInfoDTO(application);
     }
 
     public void changeStatus(ChangeStatusDTO dto) {
@@ -62,8 +66,8 @@ public class ApplicationService {
 
         regionRepository.findById(dto.getRegionId()).orElseThrow(() -> new ItemNotFoundException("Region doesn't exist with this ID !"));
         userRepository.findById(dto.getUserId()).orElseThrow(() -> new ItemNotFoundException(" User doesn't exist whit this ID !"));
-
-        return patientApplicationMapper.toPatientApplicationDTO(patientApplicationMapper.toPatientApplicationEntity(dto));
+        PatientApplication patientApplication = patientApplicationRepository.save(patientApplicationMapper.toPatientApplicationEntity(dto));
+        return patientApplicationMapper.toPatientApplicationDTO(patientApplication);
         //lat : 41.311117
         //long : 69.279761
     }

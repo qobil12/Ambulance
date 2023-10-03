@@ -40,13 +40,13 @@ public class BrigadeController {
     }
     @Operation(summary = "Change brigade's car", description = "By this method you can change brigade's old car to new one.")
     @PutMapping("/change_car")
-    public ResponseEntity<String> changeBrigadeCar(@RequestBody BrigadeCarDTO dto){
+    public ResponseEntity<BrigadeDTO> changeBrigadeCar(@RequestBody BrigadeCarDTO dto){
         return ResponseEntity.ok(brigadeService.changeBrigadeCar(dto));
     }
 
     @Operation(summary = "Change brigade's doctor", description = "By this method you can change brigade's old doctor to new one.")
     @PutMapping("/change_doctor")
-    public ResponseEntity<String> changeBrigadeDoctor(@RequestBody BrigadeDoctorDTO dto){
+    public ResponseEntity<BrigadeDTO> changeBrigadeDoctor(@RequestBody BrigadeDoctorDTO dto){
         return ResponseEntity.ok(brigadeService.changeBrigadeDoctor(dto));
     }
 

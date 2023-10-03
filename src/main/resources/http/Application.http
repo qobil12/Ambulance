@@ -1,9 +1,10 @@
-POST http://localhost:8080/api/v1/application
+POST http://localhost:8081/api/v1/application/create
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiRElTUEFUQ0hFUiIsImlkIjoiNGIyOTkyYmMtYWM4OS00MTU4LWE2MDMtMDUyZjEwNGExNmIwIn0.PuCsvwFzjAY2a7qDM2B3liswcfZKngC5fhMdeYHiru0
 Content-Type: application/json
 
 {
-  "brigadeId": "f441b016-1922-4d08-9418-e3d306ec9477",
-  "patientApplicationId": "NULL"
+  "brigadeId": "541c7766-c117-457c-8e8e-fc05772a6e47",
+  "patientApplicationId": "3f62ac47-c2a4-40ae-9b9c-85dfa543e82c"
 }
 
 
@@ -15,13 +16,14 @@ Content-Type: application/json
 ###
 
 POST http://localhost:8081/api/v1/application/patient_application
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoiZjkzNjZkNjEtODM3YS00ZjQ3LTgyMTktZTBkOTE1YmFhMTY2In0.PjZmcuxwndUo23ESPCGISk1IKXfz7TnBnmrXMJKi96c
 Content-Type: application/json
 
 {
-  "userId": "f660cc6c-5cf5-11ee-8c99-0242ac120002",
+  "userId": "f9366d61-837a-4f47-8219-e0d915baa166",
   "address": "Maxtumquli 1 , IT Park 11 etaj Orientir: Avtoritet avtomoyka",
   "illness": "Qon bosimi ko'tarilishi, baxtli juda juda",
   "latitude": 41.311117,
   "longitude": 69.279761,
-  "regionId": "e4381036-5cf5-11ee-8c99-0242ac120002"
+  "regionId": "21ea50a1-2fc3-4eb7-8856-ccd693d39f72"
 }

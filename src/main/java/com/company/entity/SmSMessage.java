@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -13,23 +14,15 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Doctor  {
+public class SmSMessage {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-
     @Column(nullable = false)
-    private String name;
+    private String body;
     @Column(nullable = false)
-    private String surname;
-    @JoinColumn(nullable = false, name = "region")
-    @ManyToOne
-    private Region region;
-
-    @Column(nullable = false)
-    private String phoneNumber;
-
-    @JoinColumn(name = "brigade")
-    @ManyToOne
-    private Brigade brigade;
+    private LocalDateTime createdDate;
+    @JoinColumn(nullable = false)
+    @OneToOne
+    private UserEntity user;
 }

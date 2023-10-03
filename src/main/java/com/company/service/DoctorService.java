@@ -11,7 +11,6 @@ import com.company.repository.RegionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -45,12 +44,9 @@ public class DoctorService {
         repository.delete(repository.findById(id).orElseThrow(()-> new ItemNotFoundException("Doctor doesn't exist with this ID")));
 
     }
-    public String changeDoctorInfo(ChangeDoctorInfoDTO dto){
-        Optional<Doctor> optional = repository.findById(dto.getDoctorId());
-        if(optional.isEmpty()){
-            throw new ItemNotFoundException("Doctor doesn't exist with this id.");
-        }
-        Doctor doctor = optional.get();
+    public DoctorDTO changeDoctorInfo(ChangeDoctorInfoDTO dto){
+        Doctor doctor = repository.findById(dto.getDoctorId())
+                .orElseThrow(() -> new ItemNotFoundException("Doctor doesn't exist with this ID"));
 
         Stream.of(dto).forEach(d->{
             if(d.getPhoneNumber()!=null){
@@ -63,12 +59,11 @@ public class DoctorService {
                 doctor.setName(d.getName());
             }
             if(dto.getBrigade()!=null){
-                if(!brigadeRepository.existsById(dto.getBrigade())){
-                    throw new ItemNotFoundException("Brigade doesn't exist with this id.");
-                }
-                doctor.setBrigade(brigadeRepository.findById(d.getBrigade()).get());
+                doctor.setBrigade(brigadeRepository.findById(d.getBrigade())
+                        .orElseThrow(()-> new ItemNotFoundException("Brigade doesn't exist with this ID")));
             }
         });
-        return "All info successfully changed.";
+
+        return doctorMapper.toDoctorDTO(repository.save(doctor));
     }
 }
