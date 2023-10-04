@@ -1,5 +1,5 @@
 package com.company.enums;
 
 public enum Role {
-    DISPATCHER,USER,ADMIN
+    DISPATCHER, USER, ADMIN
 }

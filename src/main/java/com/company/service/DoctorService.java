@@ -20,7 +20,7 @@ public class DoctorService {
     private final DoctorRepository repository;
     private final RegionRepository regionRepository;
     private final BrigadeRepository brigadeRepository;
-    private final DoctorMapper doctorMapper=DoctorMapper.INSTANCE;
+    private final DoctorMapper doctorMapper = DoctorMapper.INSTANCE;
 
     public DoctorService(DoctorRepository repository, RegionRepository regionRepository, BrigadeRepository brigadeRepository) {
         this.repository = repository;
@@ -29,8 +29,8 @@ public class DoctorService {
     }
 
     public DoctorDTO createDoctor(DoctorDTO dto) {
-        regionRepository.findById(dto.getRegionId()).orElseThrow(()->new ItemNotFoundException("Region doesn't exist with this ID"));
-       return doctorMapper.toDoctorDTO(repository.save(doctorMapper.toDoctorEntity(dto)));
+        regionRepository.findById(dto.getRegionId()).orElseThrow(() -> new ItemNotFoundException("Region doesn't exist with this ID"));
+        return doctorMapper.toDoctorDTO(repository.save(doctorMapper.toDoctorEntity(dto)));
     }
 
     public List<DoctorDTO> getAllFree() {
@@ -39,28 +39,30 @@ public class DoctorService {
                 .stream().map(doctorMapper::toDoctorDTO)
                 .collect(Collectors.toList());
     }
+
     public void delete(UUID id) {
 
-        repository.delete(repository.findById(id).orElseThrow(()-> new ItemNotFoundException("Doctor doesn't exist with this ID")));
+        repository.delete(repository.findById(id).orElseThrow(() -> new ItemNotFoundException("Doctor doesn't exist with this ID")));
 
     }
-    public DoctorDTO changeDoctorInfo(ChangeDoctorInfoDTO dto){
+
+    public DoctorDTO changeDoctorInfo(ChangeDoctorInfoDTO dto) {
         Doctor doctor = repository.findById(dto.getDoctorId())
                 .orElseThrow(() -> new ItemNotFoundException("Doctor doesn't exist with this ID"));
 
-        Stream.of(dto).forEach(d->{
-            if(d.getPhoneNumber()!=null){
+        Stream.of(dto).forEach(d -> {
+            if (d.getPhoneNumber() != null) {
                 doctor.setPhoneNumber(d.getPhoneNumber());
             }
-            if(d.getSurname()!=null){
+            if (d.getSurname() != null) {
                 doctor.setSurname(d.getSurname());
             }
-            if(d.getName()!=null){
+            if (d.getName() != null) {
                 doctor.setName(d.getName());
             }
-            if(dto.getBrigade()!=null){
+            if (dto.getBrigade() != null) {
                 doctor.setBrigade(brigadeRepository.findById(d.getBrigade())
-                        .orElseThrow(()-> new ItemNotFoundException("Brigade doesn't exist with this ID")));
+                        .orElseThrow(() -> new ItemNotFoundException("Brigade doesn't exist with this ID")));
             }
         });
 

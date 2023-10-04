@@ -22,11 +22,10 @@ public class JwtUtil {
         jwtBuilder.setExpiration(new Date(System.currentTimeMillis() + (60 * 60 * 1000))); // 19:58:00
         jwtBuilder.setIssuer("Ambulance project");
         jwtBuilder.signWith(SignatureAlgorithm.HS256, secretKey);
-        Map<String,Object> claims=new HashMap<>();
-        claims.put("id",id);
-        claims.put("role",role.name());
-//        jwtBuilder.claim("id", id);
-//        jwtBuilder.claim("role", role.name());
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("id", id);
+        claims.put("role", role.name());
+
         jwtBuilder.setClaims(claims);
         return jwtBuilder.compact();
     }
@@ -36,7 +35,7 @@ public class JwtUtil {
                 .setSigningKey(secretKey)
                 .parseClaimsJws(token)
                 .getBody();
-        return  UUID.fromString(claims.get("id").toString());
+        return UUID.fromString(claims.get("id").toString());
     }
 
     public static UUID decode(String token, Role requiredRole) {

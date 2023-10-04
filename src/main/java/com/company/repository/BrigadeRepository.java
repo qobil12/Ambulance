@@ -8,5 +8,6 @@ import java.util.UUID;
 
 public interface BrigadeRepository extends JpaRepository<Brigade, UUID> {
     Brigade getBrigadeById(UUID id);
+
     List<Brigade> findAllByIsBusy(Boolean isBusy);
 }

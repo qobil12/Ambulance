@@ -12,7 +12,6 @@ import com.company.exceptions.ItemNotFoundException;
 import com.company.mapper.UserMapper;
 import com.company.repository.UserRepository;
 import com.company.util.JwtUtil;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

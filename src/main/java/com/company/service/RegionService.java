@@ -14,12 +14,12 @@ import java.util.UUID;
 public class RegionService {
 
     final
-    RegionMapper regionMapper=RegionMapper.INSTANCE;
+    RegionMapper regionMapper = RegionMapper.INSTANCE;
     final
     RegionRepository repository;
 
     @Autowired
-    public RegionService( RegionRepository repository) {
+    public RegionService(RegionRepository repository) {
         this.repository = repository;
     }
 
@@ -30,7 +30,7 @@ public class RegionService {
     }
 
     public void delete(UUID id) {
-        repository.delete(repository.findById(id).orElseThrow(()->new ItemNotFoundException("User doesn't exist with this ID")));
+        repository.delete(repository.findById(id).orElseThrow(() -> new ItemNotFoundException("User doesn't exist with this ID")));
     }
 
     public RegionDTO changeName(RegionDTO dto) {

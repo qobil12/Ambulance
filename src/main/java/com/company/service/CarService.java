@@ -20,7 +20,7 @@ public class CarService {
     CarRepository carRepository;
     final
     RegionRepository regionRepository;
-    final CarMapper carMapper=CarMapper.INSTANCE;
+    final CarMapper carMapper = CarMapper.INSTANCE;
 
     private CarService(CarRepository carRepository, RegionRepository regionRepository) {
         this.carRepository = carRepository;
@@ -28,10 +28,10 @@ public class CarService {
     }
 
     public CarDTO createCar(CarDTO dto) {
-        if(carRepository.existsByNumber(dto.getNumber())){
+        if (carRepository.existsByNumber(dto.getNumber())) {
             throw new ItemAlreadyExistsException("Car with this number already exists");
         }
-      return carMapper.toCarDTO(carRepository.save(carMapper.toCarEntity(dto)));
+        return carMapper.toCarDTO(carRepository.save(carMapper.toCarEntity(dto)));
     }
 
     public List<CarDTO> getAllFreeCars() {
@@ -41,12 +41,12 @@ public class CarService {
     }
 
     public void deleteById(UUID id) {
-        carRepository.delete(carRepository.findById(id).orElseThrow(()-> new ItemNotFoundException("Car doesn't exist with this ID !")));
+        carRepository.delete(carRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Car doesn't exist with this ID !")));
     }
 
     public CarDTO changeNumber(ChangeCarNumberDTO dto) {
         Car car = carRepository.findById(dto.getId()).orElseThrow(() -> new ItemNotFoundException("Car not found with this ID"));
-        if(!car.getNumber().isEmpty()) car.setNumber(dto.getNewNumber());
+        if (!car.getNumber().isEmpty()) car.setNumber(dto.getNewNumber());
 
         return carMapper.toCarDTO(carRepository.save(car));
     }

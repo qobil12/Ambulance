@@ -2,18 +2,64 @@ POST http://localhost:8081/api/v1/auth/registration
 Content-Type: application/json
 
 {
-  "name": "Dispatch",
-  "surname": "Eshatov",
-  "phoneNumber": "+998337801212",
-  "password": "1111",
-  "username": "dis12"
+  "name": "Userjon",
+  "surname": "Odilov",
+  "phoneNumber": "+998337803333",
+  "password": "3333",
+  "username": "usr123"
 }
 
-### ADMIN
+###
+
+POST http://localhost:8081/api/v1/auth/registration
+Content-Type: application/json
+
+{
+  "name": "Adminjon",
+  "surname": "Odilov",
+  "phoneNumber": "+998331121212",
+  "password": "1111",
+  "username": "adm123"
+}
+
+###
+
+POST http://localhost:8081/api/v1/auth/registration
+Content-Type: application/json
+
+{
+  "name": "Dispatchjon",
+  "surname": "Odilov",
+  "phoneNumber": "+998337802222",
+  "password": "2222",
+  "username": "dsp123"
+}
+
+### USER
 POST http://localhost:8081/api/v1/auth/login
 Content-Type: application/json
 
 {
-  "phoneNumber": "+998337801212",
+  "phoneNumber": "+998337803333",
+  "password": "3333"
+}
+
+
+###DISPATCHER
+POST http://localhost:8081/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "phoneNumber": "+998337802222",
+  "password": "2222"
+}
+
+
+###ADMIN
+POST http://localhost:8081/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "phoneNumber": "+998331121212",
   "password": "1111"
 }

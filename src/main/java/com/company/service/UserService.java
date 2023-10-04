@@ -22,7 +22,6 @@ public class UserService {
     }
 
 
-
     public UserDTO changeUserInfos(ChangeUserInfoDTO dto) {
         var user = userRepository.findById(dto.getId()).orElseThrow(() -> new ItemNotFoundException("Not found"));
 
@@ -39,8 +38,8 @@ public class UserService {
             user.setPassword(dto.getPassword());
         }
         if (dto.getUsername() != null) {
-            userRepository.findByUsername(dto.getUsername()).ifPresent(userEntity->{
-               throw new ItemAlreadyExistsException("User already exist with this username !");
+            userRepository.findByUsername(dto.getUsername()).ifPresent(userEntity -> {
+                throw new ItemAlreadyExistsException("User already exist with this username !");
             });
             user.setUsername(dto.getName());
         }
@@ -51,7 +50,8 @@ public class UserService {
     public void deleteUser(UUID id) {
         userRepository.delete(userRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("User doesn't exist with this ID")));
     }
-    public UserEntity getUserById(UUID id){
-        return userRepository.findById(id).orElseThrow(()-> new ItemNotFoundException("User doesn't exist with this ID"));
+
+    public UserEntity getUserById(UUID id) {
+        return userRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("User doesn't exist with this ID"));
     }
 }

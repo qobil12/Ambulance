@@ -14,24 +14,24 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Brigade  {
+public class Brigade {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @JoinColumn(nullable = false,name = "doctor")
+    @JoinColumn(nullable = false, name = "doctor")
     @ManyToOne
     private Doctor doctor;
 
-    @JoinColumn(nullable = false,name = "car")
+    @JoinColumn(nullable = false, name = "car")
     @ManyToOne
     private Car car;
 
-    @JoinColumn(nullable = false,name = "region")
+    @JoinColumn(nullable = false, name = "region")
     @ManyToOne
     private Region region;
 
-    private Boolean isBusy=false;
+    private Boolean isBusy = false;
 
 }

@@ -32,4 +32,6 @@ public class PatientApplicationDTO {
     @NotNull
     @NotBlank
     private UUID regionId;
+    @NotNull
+    private Boolean isAttached;
 }

@@ -10,11 +10,11 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ApplicationRepository extends JpaRepository<Application, UUID> {
-       List<Application> findAllByIsClosed(Boolean isClosed);
+    List<Application> findAllByIsClosed(Boolean isClosed);
 
     @Modifying
     @Transactional
     @Query("update Application set isClosed=?1 where id=?1")
-    void changeApplicationStatus( Boolean status, UUID id) ;
+    void changeApplicationStatus(Boolean status, UUID id);
 
 }

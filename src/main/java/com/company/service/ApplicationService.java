@@ -66,6 +66,7 @@ public class ApplicationService {
 
         regionRepository.findById(dto.getRegionId()).orElseThrow(() -> new ItemNotFoundException("Region doesn't exist with this ID !"));
         userRepository.findById(dto.getUserId()).orElseThrow(() -> new ItemNotFoundException(" User doesn't exist whit this ID !"));
+        dto.setIsAttached(false);
         PatientApplication patientApplication = patientApplicationRepository.save(patientApplicationMapper.toPatientApplicationEntity(dto));
         return patientApplicationMapper.toPatientApplicationDTO(patientApplication);
         //lat : 41.311117

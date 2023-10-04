@@ -13,7 +13,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Doctor  {
+public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;

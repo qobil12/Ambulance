@@ -22,11 +22,11 @@ public class Application {
     @Column(nullable = false)
     private LocalDateTime createdDate;
 
-    @JoinColumn(nullable = false,name = "patient")
+    @JoinColumn(nullable = false, name = "patient")
     @ManyToOne(fetch = FetchType.LAZY)
     private UserEntity user;
 
-    @JoinColumn(nullable = false,name = "region")
+    @JoinColumn(nullable = false, name = "region")
     @ManyToOne(fetch = FetchType.LAZY)
     private Region region;
 
@@ -37,5 +37,5 @@ public class Application {
     @ManyToOne(fetch = FetchType.LAZY)
     private Brigade brigade;
     @Column(nullable = false)
-    private Boolean isClosed=false;
+    private Boolean isClosed = false;
 }
