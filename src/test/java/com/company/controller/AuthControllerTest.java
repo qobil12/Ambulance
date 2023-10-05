@@ -8,6 +8,7 @@ import com.company.enums.ProfileStatus;
 import com.company.enums.Role;
 import com.company.repository.UserRepository;
 import com.company.service.AuthService;
+import com.company.service.SmsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -48,6 +49,7 @@ class AuthControllerTest {
 
     @MockBean
     private UserRepository userRepository;
+    private SmsService smsService;
 
     /**
      * Method under test: {@link AuthController#login(AuthDTO)}
@@ -76,7 +78,7 @@ class AuthControllerTest {
         Optional<UserEntity> ofResult = Optional.of(userEntity);
         UserRepository userRepository = mock(UserRepository.class);
         when(userRepository.findByPhoneNumber(Mockito.<String>any())).thenReturn(ofResult);
-        AuthController authController = new AuthController(new AuthService(userRepository, new BCryptPasswordEncoder()));
+        AuthController authController = new AuthController(new AuthService(userRepository, new BCryptPasswordEncoder(), smsService));
 
         AuthDTO dto = new AuthDTO();
         dto.setPassword("iloveyou");

@@ -1,10 +1,10 @@
 POST http://localhost:8081/api/v1/application/create
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiRElTUEFUQ0hFUiIsImlkIjoiNjNjNzY1NjgtYWIyMC00ZGFjLWIwYmEtYTA3MTg0Mzg1OTE3In0.rvfXhrRvgX8sWB1oQKMWh_ggARKlRKB84t69t0GmYlM
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiRElTUEFUQ0hFUiIsImlkIjoiNjBmMDkwZjUtY2FhOC00OWY0LWJjMzQtMjY3MDIwZDcxM2Y3In0.l0KwFnlju_tBQnN5QvXpGSSOs0p4EPjQbm20aKDpvjg
 Content-Type: application/json
 
 {
-  "brigadeId": "dc2f47fc-20a8-49b1-98a6-d6738d79e1c2",
-  "patientApplicationId": "0575c26f-4ede-4991-b5ef-c05932b4ee25"
+  "brigadeId": "a0a8e195-5eea-43c5-9ecb-5729f6a6bf1e",
+  "patientApplicationId": "d4ba822a-c142-458e-b734-a7b1565586d4"
 }
 
 
@@ -16,14 +16,14 @@ Content-Type: application/json
 ###
 
 POST http://localhost:8081/api/v1/application/patient_application
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoiZWM5ZTc2YjYtNTU4Zi00ZjhhLWJlYzUtMWIyMzI0NmQ5OTM4In0.07Uy2QX1HMLNErAASW8yodGwvbTLcHu381GL6oLb6o8
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoiZTQ4NzRkZTItNTFkOC00NWI5LWFiYjctM2M2YTI5MjEyMDhkIn0.C4DdsSA5oIOmZeKF4p5VYd8aQEkt5s2t50Ulf7FrWLw
 Content-Type: application/json
 
 {
-  "userId": "ec9e76b6-558f-4f8a-bec5-1b23246d9938",
+  "userId": "e4874de2-51d8-45b9-abb7-3c6a2921208d",
   "address": "Maxtumquli 1 , IT Park 11 etaj Orientir: Avtoritet avtomoyka",
   "illness": "Qon bosimi ko'tarilishi, baxtli juda juda",
   "latitude": 41.311117,
   "longitude": 69.279761,
-  "regionId": "0ceffd15-3f45-429b-9543-53a596f7a720"
+  "regionId": "a99ca5fb-0da8-4642-9bf9-65ddbeef888e"
 }

@@ -21,12 +21,13 @@ public class AuthService {
 
     private final UserMapper userMapper = UserMapper.INSTANCE;
     private final PasswordEncoder passwordEncoder;
+    private final SmsService smsService;
 
 
-    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder, SmsService smsService) {
         this.userRepository = userRepository;
-
         this.passwordEncoder = passwordEncoder;
+        this.smsService = smsService;
     }
 
 
@@ -39,11 +40,9 @@ public class AuthService {
         });
         dto.setPassword(passwordEncoder.encode(dto.getPassword()));
         UserEntity user = userRepository.save(userMapper.toUserEntity(dto));
-        String token = JwtUtil.encode(user.getId());
-        SmSMessage smSMessage = new SmSMessage();
-        // return smsService.sendSMS(smSMessage);
-        return "s";
 
+        return JwtUtil.encode(user.getId(), user.getRole());
+//return "saved";
     }
 
     public ProfileDTO login(AuthDTO authDTO) {

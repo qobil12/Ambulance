@@ -1,9 +1,9 @@
 POST http://localhost:8081/api/v1/brigade/create
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoiMzhlM2ZjNTUtZmYyNC00Zjg3LThlODktYTBmYjM0YjdkNjQ1In0.Tcp0mdmyq-WaFSF68o9IXwmrMYAtFsVR8eUfmiYtxHI
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJpZCI6IjIzZjJiNDlkLWE3MTQtNGJhZC1iNjE1LTBiMTYwMzBhMmJmYyJ9.wQULmoS5Ln3crZ_H4w2HU2i0u-CB9euIKWFZCJRPHxU
 Content-Type: application/json
 
 {
-  "carId": "66467833-5583-46fa-a0b8-04e84666eeee",
-  "regionId": "0ceffd15-3f45-429b-9543-53a596f7a720",
-  "doctorId": "43b880ac-9cb7-4d14-bc30-e85ffa1d0c22"
+  "carId": "0025648e-c12d-41c3-918f-ffea6a519083",
+  "regionId": "a99ca5fb-0da8-4642-9bf9-65ddbeef888e",
+  "doctorId": "ba414647-81f8-43ad-bf57-5d8daccb30ad"
 }

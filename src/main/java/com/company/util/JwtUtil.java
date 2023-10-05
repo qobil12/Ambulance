@@ -14,13 +14,13 @@ import java.util.Map;
 import java.util.UUID;
 
 public class JwtUtil {
-    private static final String secretKey = "ambulance";
+    private static final String secretKey = "ZTx7i3mVf9c2rGkE1sNpD5qAzLrXwGyB123avaQdzKJDA921LKCi";
 
     public static String encode(UUID id, Role role) {
         JwtBuilder jwtBuilder = Jwts.builder();
         jwtBuilder.setIssuedAt(new Date()); // 18:58:00
         jwtBuilder.setExpiration(new Date(System.currentTimeMillis() + (60 * 60 * 1000))); // 19:58:00
-        jwtBuilder.setIssuer("Ambulance project");
+        jwtBuilder.setIssuer("ZTx7i3mVf9c2rGkE1sNpD5qAzLrXwGyB");
         jwtBuilder.signWith(SignatureAlgorithm.HS256, secretKey);
         Map<String, Object> claims = new HashMap<>();
         claims.put("id", id);

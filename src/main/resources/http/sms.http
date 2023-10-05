@@ -1,0 +1,15 @@
+POST http://localhost:8081/api/v1/sms/sendsms/eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoiMjNmMmI0OWQtYTcxNC00YmFkLWI2MTUtMGIxNjAzMGEyYmZjIn0.qgBg26LIUk-su3Fg5DemlExtkhYk0TPKoS4dL26jBDk
+###
+POST http://localhost:8081/api/v1/sms/resend/eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoiMjNmMmI0OWQtYTcxNC00YmFkLWI2MTUtMGIxNjAzMGEyYmZjIn0.qgBg26LIUk-su3Fg5DemlExtkhYk0TPKoS4dL26jBDk
+###
+POST http://localhost:8081/api/v1/sms/verification
+Content-Type: application/json
+
+
+{
+  "verificationPassword": 876111,
+  "token": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoiMjNmMmI0OWQtYTcxNC00YmFkLWI2MTUtMGIxNjAzMGEyYmZjIn0.qgBg26LIUk-su3Fg5DemlExtkhYk0TPKoS4dL26jBDk"
+}
+
+###
+eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoiMjNmMmI0OWQtYTcxNC00YmFkLWI2MTUtMGIxNjAzMGEyYmZjIn0.qgBg26LIUk-su3Fg5DemlExtkhYk0TPKoS4dL26jBDk

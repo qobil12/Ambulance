@@ -4,9 +4,9 @@ Content-Type: application/json
 {
   "name": "Userjon",
   "surname": "Odilov",
-  "phoneNumber": "+998337803333",
-  "password": "3333",
-  "username": "usr123"
+  "phoneNumber": "+998337801111",
+  "password": "1111",
+  "username": "user"
 }
 
 ###
@@ -40,8 +40,8 @@ POST http://localhost:8081/api/v1/auth/login
 Content-Type: application/json
 
 {
-  "phoneNumber": "+998337803333",
-  "password": "3333"
+  "phoneNumber": "+998337801212",
+  "password": "1212"
 }
 
 
@@ -60,6 +60,6 @@ POST http://localhost:8081/api/v1/auth/login
 Content-Type: application/json
 
 {
-  "phoneNumber": "+998331121212",
-  "password": "1111"
+  "phoneNumber": "+998337806712",
+  "password": "3333"
 }

@@ -19,10 +19,10 @@ public class SmSMessage {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     @Column(nullable = false)
-    private String body;
-    @Column(nullable = false)
     private LocalDateTime createdDate;
     @JoinColumn(nullable = false)
-    @OneToOne
+    @ManyToOne
     private UserEntity user;
+    @Column(nullable = false)
+    private int generatedCode;
 }

@@ -1,9 +1,9 @@
 POST http://localhost:8081/api/v1/car/create
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoiMzhlM2ZjNTUtZmYyNC00Zjg3LThlODktYTBmYjM0YjdkNjQ1In0.Tcp0mdmyq-WaFSF68o9IXwmrMYAtFsVR8eUfmiYtxHI
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJpZCI6IjIzZjJiNDlkLWE3MTQtNGJhZC1iNjE1LTBiMTYwMzBhMmJmYyJ9.wQULmoS5Ln3crZ_H4w2HU2i0u-CB9euIKWFZCJRPHxU
 Content-Type: application/json
 
 {
   "model": "BMW",
   "number": "01 | 123 BAA",
-  "regionId": "0ceffd15-3f45-429b-9543-53a596f7a720"
+  "regionId": "a99ca5fb-0da8-4642-9bf9-65ddbeef888e"
 }
